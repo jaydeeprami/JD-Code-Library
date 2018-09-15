@@ -75,7 +75,7 @@ class JD_Code_Library_Admin {
 		remove_meta_box( 'dashboard_quick_press', 'dashboard', 'side' );
 
 		wp_add_dashboard_widget( 'jd_dashboard_widget', // Widget slug.
-			'JD Dashboard Widget', // Title.
+			__( 'JD Dashboard Widget' ), // Title.
 			array( $this, 'jd_dashboard_widget_function' ) // Display function.
 		);
 	}
