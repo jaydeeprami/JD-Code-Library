@@ -18,6 +18,9 @@ class JD_Code_Library_Admin {
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_styles' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ), 10, 1 );
 
+		// Add Dashboard widget.
+		add_action( 'wp_dashboard_setup', array( $this, 'jd_dashboard_setup' ) );
+
 	}
 
 	/**
@@ -59,6 +62,29 @@ class JD_Code_Library_Admin {
 
 			wp_enqueue_script( 'datetimepicker-script', JD_CODE_LIBRARY_PLUGIN_URL . 'assets/js/jquery.datetimepicker.full.min.js' );
 		}
+	}
+
+	/**
+	 * Setup WordPress Dashboard widget.
+	 */
+	public function jd_dashboard_setup() {
+
+		// Remove default WordPress Dashboard widget.
+		remove_meta_box( 'dashboard_activity', 'dashboard', 'normal' );
+		remove_meta_box( 'dashboard_right_now', 'dashboard', 'side' );
+		remove_meta_box( 'dashboard_quick_press', 'dashboard', 'side' );
+
+		wp_add_dashboard_widget( 'jd_dashboard_widget', // Widget slug.
+			'JD Dashboard Widget', // Title.
+			array( $this, 'jd_dashboard_widget_function' ) // Display function.
+		);
+	}
+
+	/**
+	 * Callback function of JD Dashboard Widget.
+	 */
+	public function jd_dashboard_widget_function() {
+		esc_html_e( 'This is a Sample Dashboard widget' );
 	}
 }
 
